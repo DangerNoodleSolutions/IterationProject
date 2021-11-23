@@ -4,7 +4,7 @@ const cookieParser = require('cookie-parser');
 const bodyParser = require('body-parser');
 const mongoose = require('mongoose');
 const entryController = require('./controllers/EntryController.js');
-
+const loginController = require('./controllers/LoginController.js');
 //intialize port 3000 const
 const PORT = 3000;
 
@@ -13,17 +13,18 @@ const app = express();
 
 //this creates a mongoose db
 
-//connect your own database!! 
-const MONGO_URI = 
-
-mongoose.connect(MONGO_URI, { useNewUrlParser: true, useUnifiedTopology: true});
+//connect your own database!!
+const MONGO_URI = mongoose.connect(MONGO_URI, {
+  useNewUrlParser: true,
+  useUnifiedTopology: true,
+});
 mongoose.connection.once('open', () => {
   console.log('Connected to Database');
 });
 
 //url encoded and json body parsers
 app.use(express.json());
-app.use(bodyParser.urlencoded({extended: true}));
+app.use(bodyParser.urlencoded({ extended: true }));
 
 // const entryRouter = express.Router();
 // app.use('/test', entryRouter);
@@ -31,12 +32,10 @@ app.use(bodyParser.urlencoded({extended: true}));
 // statically serve everything in the build folder on the route '/build'
 app.use('/build', express.static(path.join(__dirname, '../build')));
 
-
 /////////////////////////// ROUTE HANDLERS //////////////////////////////////
 
 // display all journal entries in DB
 app.get('/api', entryController.getEntries);
-
 
 // create a journal entry
 app.post('/api/test', entryController.createEntry, (req, res) => {
@@ -47,34 +46,38 @@ app.post('/api/test', entryController.createEntry, (req, res) => {
 app.get('/api/test', entryController.getEntry);
 
 // update a journal entry
-app.put('/api/update/:entryId', entryController.updateEntry, (req, res) =>{
+app.put('/api/update/:entryId', entryController.updateEntry, (req, res) => {
   return res.status(200).redirect('/');
-}); 
+});
 
 // delete a journal entry
-app.delete('/api/delete/:entryId', entryController.deleteEntry,  (req, res) => {
-  console.log('left delete entry')
-  
+app.delete('/api/delete/:entryId', entryController.deleteEntry, (req, res) => {
+  console.log('left delete entry');
+
   return res.status(200);
 });
 
+app.get('/api/login', loginController.login);
+
+app.post('/api/signup', loginController.createUser);
 
 // /////////////////////////////////////////////////////////////////////////////
 // //test to send main file to 3000
 app.get('/', (req, res) => {
-  return res.status(200).sendFile(path.resolve(__dirname, '../client/index.html'))
+  return res
+    .status(200)
+    .sendFile(path.resolve(__dirname, '../client/index.html'));
 });
-
-
 
 //404 error handler
 app.use('*', (req, res) => {
-  return res.status(418).json('Could not find what you\'re looking for so you\'re a teapot');
+  return res
+    .status(418)
+    .json("Could not find what you're looking for so you're a teapot");
 });
 
-
 app.listen(PORT, () => {
-  console.log(`Listening on port ${PORT}`)
+  console.log(`Listening on port ${PORT}`);
 });
 
 module.exports = app;

@@ -13,16 +13,16 @@ const app = express();
 //this creates a mongoose db
 
 //connect your own database!! 
-const MONGO_URI = 
+// const MONGO_URI = ;
 
-mongoose.connect(MONGO_URI, { useNewUrlParser: true, useUnifiedTopology: true});
+mongoose.connect(MONGO_URI, { useNewUrlParser: true, useUnifiedTopology: true });
 mongoose.connection.once('open', () => {
   console.log('Connected to Database');
 });
 
 //url encoded and json body parsers
 app.use(express.json());
-app.use(bodyParser.urlencoded({extended: true}));
+app.use(bodyParser.urlencoded({ extended: true }));
 
 // const entryRouter = express.Router();
 // app.use('/test', entryRouter);
@@ -46,14 +46,14 @@ app.post('/api/test', entryController.createEntry, (req, res) => {
 app.get('/api/test', entryController.getEntry);
 
 // update a journal entry
-app.put('/api/update/:entryId', entryController.updateEntry, (req, res) =>{
+app.put('/api/update/:entryId', entryController.updateEntry, (req, res) => {
   return res.status(200).redirect('/');
-}); 
+});
 
 // delete a journal entry
-app.delete('/api/delete/:entryId', entryController.deleteEntry,  (req, res) => {
+app.delete('/api/delete/:entryId', entryController.deleteEntry, (req, res) => {
   console.log('left delete entry')
-  
+
   return res.status(200);
 });
 

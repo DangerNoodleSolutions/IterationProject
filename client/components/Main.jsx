@@ -9,7 +9,11 @@ const Main = (props) => {
   const [entries, newEntries] = useState([]);
 
   useEffect(() => {
-    fetch(getEntries)
+    fetch(getEntries, {
+      method: 'GET',
+      headers: { 'Content-type': 'application/json; charset=UTF-8' },
+      body: JSON.stringify({user_id: props.user_id})
+    })
       .then((res) => res.json()) // Res has to use findAll to make sure we are given an array from the database
       .then((res) => {
         newEntries(res);
@@ -27,7 +31,7 @@ const Main = (props) => {
         entryId={entries[i]._id}
         title={entries[i].title}
         category={entries[i].category}
-        text={entries[i].text}
+        body={entries[i].body}
       />
     );
   }

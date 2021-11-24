@@ -7,6 +7,7 @@ function Login() {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
   const [loggedIn, setLogin] = useState(false);
+  const [user_id, setUserId] = useState('')
   let error;
 
   const handleSubmit = async (e) => {
@@ -17,11 +18,12 @@ function Login() {
     if (response.data.user_id) {
       //TBD
       setLogin(true);
+      setUserId(response.data.user_id)
     }
   };
 
   return loggedIn ? (
-    <Navigate to='/maincontainer' />
+    <Navigate to='/maincontainer' user_id={user_id}/>
   ) : (
     <div>
       <h1>Login</h1>

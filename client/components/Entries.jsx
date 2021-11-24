@@ -1,8 +1,8 @@
-import React, { useState, Component } from 'react';
+import React, { useState } from 'react';
 import Modal from './Modal';
 
 //entryId = imported from Main
-export default function Entries({ title, category, text, entryId, entries }) {
+export default function Entries({ title, category, body, entryId, entries }) {
   const [showModal, setShowModal] = useState(false);
 
   const getEntries = 'http://localhost:8080/api';
@@ -30,7 +30,7 @@ export default function Entries({ title, category, text, entryId, entries }) {
         <h4>{category}</h4>
         {/* <h4>{this.props.entries.date}</h4> */}
       </div>
-      <p className={'description'}>{text}</p>
+      <p className={'description'}>{body}</p>
       <div>
         {' '}
         <button className={'update-btn'} onClick={showModalOnClick}>
@@ -47,7 +47,7 @@ export default function Entries({ title, category, text, entryId, entries }) {
           entryId={entryId}
           entries={entries}
           title={title}
-          text={text}
+          body={body}
           category={category}
           setShowModal={setShowModal}
         />

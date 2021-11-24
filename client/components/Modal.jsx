@@ -5,12 +5,12 @@ const getEntries = 'http://localhost:8080/api';
 const deleteEntries = 'http://localhost:8080/api/delete';
 const updateEntries = 'http://localhost:8080/api/update';
 
-const Modal = ({ entryId, title, text, category, setShowModal }) => {
+const Modal = ({ entryId, title, body, category, setShowModal }) => {
   function handleUpdate() {
     fetch(updateEntries + '/' + entryId, {
       method: 'PUT',
       headers: { 'Content-type': 'application/json; charset=UTF-8' },
-      body: JSON.stringify({entryId, title, text, category})
+      body: JSON.stringify({entryId, title, body, category})
     })
       .then((res) => res.json())
       .then((data) => console.log(data))
@@ -50,7 +50,7 @@ const Modal = ({ entryId, title, text, category, setShowModal }) => {
               <textarea
                 name="text"
                 type="text"
-                defaultValue={`${text}`}
+                defaultValue={`${body}`}
               ></textarea>{' '}
             </div>
             <input

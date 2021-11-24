@@ -7,7 +7,7 @@ function Login() {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
   const [loggedIn, setLogin] = useState(false);
-  const [user_id, setUserId] = useState('')
+  const [user_id, setUserId] = useState('');
   let error;
 
   const handleSubmit = async (e) => {
@@ -18,24 +18,26 @@ function Login() {
     if (response.data.user_id) {
       //TBD
       setLogin(true);
-      setUserId(response.data.user_id)
+      setUserId(response.data.user_id);
     }
   };
 
   return loggedIn ? (
-    <Navigate to='/maincontainer' user_id={user_id}/>
+    <Navigate to="/maincontainer" user_id={user_id} />
   ) : (
     <div>
       <h1>Login</h1>
       <form onSubmit={handleSubmit}>
         <label>Username</label>
-        <input type='text' onChange={(e) => setUsername(e.target.value)} />
+        <input type="text" onChange={(e) => setUsername(e.target.value)} />
         <label>Password</label>
-        <input type='text' onChange={(e) => setPassword(e.target.value)} />
-        <button type='submit'>Log in</button>
+        <input type="text" onChange={(e) => setPassword(e.target.value)} />
+        <button type="submit">Log in</button>
       </form>
-      <Link to='/signup'>Sign Up </Link>
+      <Link to="/signup">Sign Up </Link>
       <div>{error}</div>
     </div>
   );
 }
+
+export default Login;

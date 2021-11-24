@@ -2,7 +2,14 @@ import React, { useState } from 'react';
 import Modal from './Modal';
 
 //entryId = imported from Main
-export default function Entries({ title, category, body, entryId, entries }) {
+export default function Entries({
+  title,
+  category,
+  text,
+  entryId,
+  entries,
+  newEntries,
+}) {
   const [showModal, setShowModal] = useState(false);
 
   const getEntries = 'http://localhost:8080/api';
@@ -50,6 +57,7 @@ export default function Entries({ title, category, body, entryId, entries }) {
           body={body}
           category={category}
           setShowModal={setShowModal}
+          newEntries={newEntries}
         />
       ) : null}
     </div>

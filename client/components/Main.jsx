@@ -12,7 +12,7 @@ const Main = (props) => {
     fetch(getEntries, {
       method: 'GET',
       headers: { 'Content-type': 'application/json; charset=UTF-8' },
-      body: JSON.stringify({user_id: props.user_id})
+      body: JSON.stringify({ user_id: props.user_id }),
     })
       .then((res) => res.json()) // Res has to use findAll to make sure we are given an array from the database
       .then((res) => {
@@ -21,7 +21,7 @@ const Main = (props) => {
       .catch((error) => {
         console.log(`There is an ${error} when mounting Main component`);
       });
-  });
+  }, [entries]);
 
   const entry = [];
   for (let i = 0; i < entries.length; i++) {

@@ -1,34 +1,49 @@
 const Entry = require('../models/EntryModel.js');
 
 const EntryController = {
-  createEntry(req, res, next) {
-    const { title, category, text } = req.body;
-    if (!category) return res.render('Missing date and/or category from EntryController.createEntry');
-  
-    Entry.create({ title: title, category: category, text: text }, (err, entry) => {
-      if (err) {
-        console.log('MONGOERRORSAYSWHATTTTTT', err);
-        res.status(400);
-      } else{
-        console.log('connected to DB')
-        res.locals.entry = entry;
-        // res.json(res.locals.entry);
-        // res.redirect('/');
-        next();
-      }
-    });
+  async createEntry(req, res, next) {
+    const { title, category, date, body } = req.body;
+    try {
+      const text =`
+      INSERT INTO journals (title, category, date, body)
+      VALUES ($1, $2, $3, $4)
+      RETURNING *
+      `
+      const params = [title, category, date, body ];
+      const result = await Entry.query(text, params);
+      res.locals.entries = result.rows[0];
+      next();
+    }
+    catch (err) {
+      next({
+        log: `EntryController.createEntry: Error: ${err}`,
+        message: {err: 'Error occurred in EntryController.createEntry. Check server logs for more details'}
+      })
+    }
   },
 // this method rerquests all of the entries in db
-  async getEntries(req, res) {
-    const entries = await Entry.find();
+  async getEntries(req, res, next) {
+    const entries = [];
+    try {
+      const text = `SELECT * FROM journals`;
+      
+      const result = await Entry.query(text);
+      res.locals.entries = result.rows[0];
+      next();
+    } catch (error) {
+      next({
+        log: `EntryController.getEntry: Error: ${err}`,
+        message: {err: 'Error occurred in EntryController.getEntry. Check server logs for more details'}
+      })
+    }
     res.locals.entries = entries;
     res.status(200).json(res.locals.entries);
     
   },
 
   // this method will filter the entries by the requested category
-  async getEntry(req, res) {
-    const entries = await Entry.find({category: req.body.category})
+  async getEntry(req, res, next) {
+    const entries = res.locals.
     
     res.locals.entries = entries
     res.status(200).json(res.locals.entries);
@@ -36,7 +51,7 @@ const EntryController = {
 
 // this method will 
   async updateEntry(req, res, next) {
-    const { title, category, text } = req.body;
+    const { title, category, date, body } = req.body;
     await Entry.findByIdAndUpdate(`${req.params.entryId}`, {title: title, category: category, text: text},(err, updated) => {
       if (err) return res.status(400).render('Error in EntryController.updateEntry');
       console.log(updated)
@@ -57,15 +72,23 @@ const EntryController = {
   },
 
   async deleteEntry(req, res, next) {
-    await Entry.findByIdAndDelete(`${req.params.entryId}`, (err, deleted) => {
-      if (err) return res.status(400).render('Error in EntryController.deleteEntry');
-      console.log(deleted)
+  
+      const { user, id } = req.query;
+      const result = `
+      DELETE FROM journals 
+      WHERE journals.id =${id} 
+      AND users_id = ${users}`;
 
-      // res.locals.student = student;
-      console.log('Student deleted from database.');
-     
-      return next();
+  try {
+    const deleted = await db.query(result);
+  } catch (err) {
+    return next({
+      status: 500,
+      message: `EntryController.deleteEntry error: ${err}`,
     });
+  }
+      return next();
+   
   },
 
   // quizController.getQuestions = async (req, res, next) => {

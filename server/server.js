@@ -3,6 +3,7 @@ const path = require('path');
 const cookieParser = require('cookie-parser');
 const bodyParser = require('body-parser');
 const entryController = require('./controllers/EntryController.js');
+const userController = require('./controllers/userController')
 
 //intialize port 3000 const
 const PORT = 3000;
@@ -13,12 +14,12 @@ const app = express();
 //this creates a mongoose db
 
 //connect your own database!! 
-const MONGO_URI = 
+// const MONGO_URI = 
 
-mongoose.connect(MONGO_URI, { useNewUrlParser: true, useUnifiedTopology: true});
-mongoose.connection.once('open', () => {
-  console.log('Connected to Database');
-});
+// mongoose.connect(MONGO_URI, { useNewUrlParser: true, useUnifiedTopology: true});
+// mongoose.connection.once('open', () => {
+//   console.log('Connected to Database');
+// });
 
 //url encoded and json body parsers
 app.use(express.json());
@@ -32,6 +33,16 @@ app.use('/build', express.static(path.join(__dirname, '../build')));
 
 
 /////////////////////////// ROUTE HANDLERS //////////////////////////////////
+
+// create a new user
+app.post('/users/signup', userController.registerUser, (req, res) => {
+  return res.status(200).redirect('/');
+});
+
+// login a user
+app.post('/users/login', userController.loginUser, (req, res) => {
+  return res.status(200).redirect('/');
+});
 
 // display all journal entries in DB
 app.get('/api', entryController.getEntries);

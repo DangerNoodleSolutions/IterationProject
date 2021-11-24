@@ -10,6 +10,7 @@ const Modal = ({ entryId, title, text, category, setShowModal }) => {
     fetch(updateEntries + '/' + entryId, {
       method: 'PUT',
       headers: { 'Content-type': 'application/json; charset=UTF-8' },
+      body: JSON.stringify({entryId, title, text, category})
     })
       .then((res) => res.json())
       .then((data) => console.log(data))

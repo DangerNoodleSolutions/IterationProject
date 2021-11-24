@@ -25,6 +25,7 @@ const Modal = ({
         body: text,
       },
       headers: { 'Content-type': 'application/json; charset=UTF-8' },
+      body: JSON.stringify({ entryId, title, body, category }),
     })
       .then((res) => res.json())
       .then((data) => console.log(data))
@@ -64,7 +65,7 @@ const Modal = ({
               <textarea
                 name="text"
                 type="text"
-                defaultValue={`${text}`}
+                defaultValue={`${body}`}
               ></textarea>{' '}
             </div>
             <input

@@ -9,6 +9,7 @@ function Signup() {
   const [full_name, setName] = useState('');
   const [email, setEmail] = useState('');
   const [loggedIn, setLogin] = useState(false);
+  const [user_id, setUserId] = useState('');
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -29,7 +30,7 @@ function Signup() {
     }
   };
   return loggedIn ? (
-    <Navigate to="/maincontainer" />
+    <Navigate to="/maincontainer" user_id={user_id} />
   ) : (
     <div>
       <h1>Sign Up </h1>

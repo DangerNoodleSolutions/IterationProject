@@ -35,7 +35,9 @@ app.post('/users/login', userController.loginUser, (req, res) => {
 });
 
 // display all journal entries in DB
-app.get('/api', entryController.getEntries);
+app.get('/api', entryController.getEntries, (req, res) => {
+  return res.json(res.locals.entries)
+});
 
 // create a journal entry
 app.post('/api/test', entryController.createEntry, (req, res) => {
@@ -43,18 +45,19 @@ app.post('/api/test', entryController.createEntry, (req, res) => {
 });
 
 // find a journal entry
-app.get('/api/test', entryController.getEntry);
+app.get('/api/test', entryController.getEntry, (req, res) => {
+  return res.status(200).json('Entry found')
+});
 
 // update a journal entry
 app.put('/api/update/:entryId', entryController.updateEntry, (req, res) => {
-  return res.status(200).redirect('/');
+  return res.status(200).json('Entry updated successfully')
 });
 
 // delete a journal entry
 app.delete('/api/delete/:entryId', entryController.deleteEntry, (req, res) => {
-  console.log('left delete entry');
-
-  return res.status(200);
+  // res.json('This works');
+  return res.status(200).json('deleted successfully');
 });
 
 // /////////////////////////////////////////////////////////////////////////////

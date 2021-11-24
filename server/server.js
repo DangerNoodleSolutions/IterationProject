@@ -3,7 +3,7 @@ const path = require('path');
 const cookieParser = require('cookie-parser');
 const bodyParser = require('body-parser');
 const entryController = require('./controllers/EntryController.js');
-const loginController = require('./controllers/LoginController.js');
+
 //intialize port 3000 const
 const PORT = 3000;
 
@@ -13,13 +13,13 @@ const app = express();
 //this creates a mongoose db
 
 //connect your own database!!
-const MONGO_URI = mongoose.connect(MONGO_URI, {
-  useNewUrlParser: true,
-  useUnifiedTopology: true,
-});
-mongoose.connection.once('open', () => {
-  console.log('Connected to Database');
-});
+// const MONGO_URI = mongoose.connect(MONGO_URI, {
+//   useNewUrlParser: true,
+//   useUnifiedTopology: true,
+// });
+// mongoose.connection.once('open', () => {
+//   console.log('Connected to Database');
+// });
 
 //url encoded and json body parsers
 app.use(express.json());
@@ -55,10 +55,6 @@ app.delete('/api/delete/:entryId', entryController.deleteEntry, (req, res) => {
 
   return res.status(200);
 });
-
-app.get('/api/login', loginController.login);
-
-app.post('/api/signup', loginController.createUser);
 
 // /////////////////////////////////////////////////////////////////////////////
 // //test to send main file to 3000

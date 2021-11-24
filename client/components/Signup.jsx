@@ -8,7 +8,8 @@ function Signup() {
   const [email, setEmail] = useState('');
   const [loggedIn, setLogin] = useState(false);
 
-  const submit = async (e) => {
+  const handleSubmit = async (e) => {
+    e.preventDefault();
     const reqOptions = {
       username: username,
       password: password,
@@ -27,7 +28,7 @@ function Signup() {
   ) : (
     <div>
       <h1>Sign Up </h1>
-      <form onSubmit={submit}>
+      <form onSubmit={handleSubmit}>
         <label>Full Name</label>
         <input
           placeholder='Full Name'

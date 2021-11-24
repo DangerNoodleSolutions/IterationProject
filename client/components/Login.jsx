@@ -9,7 +9,8 @@ function Login() {
   const [loggedIn, setLogin] = useState(false);
   let error;
 
-  const submit = async (e) => {
+  const handleSubmit = async (e) => {
+    e.preventDefault();
     const reqOptions = { username: username, password: password };
     const response = await axios.get('/api/login', reqOptions);
     if (response.data.error) error = response.data.error;
@@ -24,7 +25,7 @@ function Login() {
   ) : (
     <div>
       <h1>Login</h1>
-      <form onSubmit={submit}>
+      <form onSubmit={handleSubmit}>
         <label>Username</label>
         <input type='text' onChange={(e) => setUsername(e.target.value)} />
         <label>Password</label>

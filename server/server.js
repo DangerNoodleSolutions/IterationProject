@@ -22,7 +22,6 @@ app.use(bodyParser.urlencoded({ extended: true }));
 // statically serve everything in the build folder on the route '/build'
 app.use('/build', express.static(path.join(__dirname, '../build')));
 
-
 /////////////////////////// ROUTE HANDLERS //////////////////////////////////
 
 // create a new user
@@ -37,7 +36,6 @@ app.post('/users/login', userController.loginUser, (req, res) => {
 
 // display all journal entries in DB
 app.get('/api', entryController.getEntries);
-
 
 // create a journal entry
 app.post('/api/test', entryController.createEntry, (req, res) => {
@@ -54,28 +52,28 @@ app.put('/api/update/:entryId', entryController.updateEntry, (req, res) => {
 
 // delete a journal entry
 app.delete('/api/delete/:entryId', entryController.deleteEntry, (req, res) => {
-  console.log('left delete entry')
+  console.log('left delete entry');
 
   return res.status(200);
 });
 
-
 // /////////////////////////////////////////////////////////////////////////////
 // //test to send main file to 3000
 app.get('/', (req, res) => {
-  return res.status(200).sendFile(path.resolve(__dirname, '../client/index.html'))
+  return res
+    .status(200)
+    .sendFile(path.resolve(__dirname, '../client/index.html'));
 });
-
-
 
 //404 error handler
 app.use('*', (req, res) => {
-  return res.status(418).json('Could not find what you\'re looking for so you\'re a teapot');
+  return res
+    .status(418)
+    .json("Could not find what you're looking for so you're a teapot");
 });
 
-
 app.listen(PORT, () => {
-  console.log(`Listening on port ${PORT}`)
+  console.log(`Listening on port ${PORT}`);
 });
 
 module.exports = app;

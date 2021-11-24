@@ -5,10 +5,25 @@ const getEntries = 'http://localhost:8080/api';
 const deleteEntries = 'http://localhost:8080/api/delete';
 const updateEntries = 'http://localhost:8080/api/update';
 
-const Modal = ({ entryId, title, text, category, setShowModal }) => {
+// /api/update/:entryId
+// Make State items that update onChange in text fields to save user input, which we can use in our fetch request to update entries
+const Modal = ({
+  entryId,
+  title,
+  text,
+  category,
+  setShowModal,
+  newEntries,
+}) => {
   function handleUpdate() {
-    fetch(updateEntries + '/' + entryId, {
+    fetch(`http://localhost:3000/api/update/:${entryId}`, {
       method: 'PUT',
+      body: {
+        title: title,
+        category: category,
+        date: date,
+        body: text,
+      },
       headers: { 'Content-type': 'application/json; charset=UTF-8' },
     })
       .then((res) => res.json())

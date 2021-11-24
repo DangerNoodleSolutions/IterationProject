@@ -21,19 +21,21 @@ function Login() {
   };
 
   return loggedIn ? (
-    <Navigate to='/maincontainer' />
+    <Navigate to="/" />
   ) : (
     <div>
       <h1>Login</h1>
       <form onSubmit={handleSubmit}>
         <label>Username</label>
-        <input type='text' onChange={(e) => setUsername(e.target.value)} />
+        <input type="text" onChange={(e) => setUsername(e.target.value)} />
         <label>Password</label>
-        <input type='text' onChange={(e) => setPassword(e.target.value)} />
-        <button type='submit'>Log in</button>
+        <input type="text" onChange={(e) => setPassword(e.target.value)} />
+        <button type="submit">Log in</button>
       </form>
-      <Link to='/signup'>Sign Up </Link>
+      <Link to="/signup">Sign Up </Link>
       <div>{error}</div>
     </div>
   );
 }
+
+export default Login;

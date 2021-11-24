@@ -1,10 +1,10 @@
 import React from 'react';
-import Main from './components/Main.jsx';
+import Homepage from './components/Homepage.jsx';
 
 export default function App() {
   return (
     <div id="main-div">
-      <Main />
+      <Homepage />
     </div>
   );
 }

@@ -17,7 +17,7 @@ const Main = (props) => {
       .catch((error) => {
         console.log(`There is an ${error} when mounting Main component`);
       });
-  });
+  }, [entries]);
 
   const entry = [];
   for (let i = 0; i < entries.length; i++) {
@@ -28,6 +28,7 @@ const Main = (props) => {
         title={entries[i].title}
         category={entries[i].category}
         text={entries[i].text}
+        newEntries={newEntries}
       />
     );
   }

@@ -2,7 +2,6 @@ const express = require('express');
 const path = require('path');
 const cookieParser = require('cookie-parser');
 const bodyParser = require('body-parser');
-const mongoose = require('mongoose');
 const entryController = require('./controllers/EntryController.js');
 const loginController = require('./controllers/LoginController.js');
 //intialize port 3000 const

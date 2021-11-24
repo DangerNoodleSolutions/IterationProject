@@ -25,7 +25,9 @@ const EntryController = {
 // this method rerquests all of the entries in db
   async getEntries(req, res, next) {
     const { user_id } = req.body;
+    console.log('works after req.params')
     try {
+      console.log('works at beginning of try')
       const text = `SELECT * FROM journals WHERE user_id = ${ user_id }`;
       
       const result = await Entry.query(text);

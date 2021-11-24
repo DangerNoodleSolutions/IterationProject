@@ -26,12 +26,12 @@ app.use('/build', express.static(path.join(__dirname, '../build')));
 
 // create a new user
 app.post('/users/signup', userController.registerUser, (req, res) => {
-  return res.status(200).redirect('/');
+  return res.status(200).json({user_id: res.locals.user_id})
 });
 
 // login a user
 app.post('/users/login', userController.loginUser, (req, res) => {
-  return res.status(200).redirect('/');
+  return res.status(200).json({user_id: res.locals.user_id})
 });
 
 // display all journal entries in DB

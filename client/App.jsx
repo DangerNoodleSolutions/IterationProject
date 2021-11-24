@@ -1,30 +1,10 @@
-//import react and component from react
+import React from 'react';
+import Main from './components/Main.jsx';
 
-import React, { Component } from 'react';
-import Main from './components/Main.jsx'
-
-const getEntries = 'http://localhost:8080/api';
-const deleteEntries ='http://localhost:8080/api/delete';
-const updateEntries ='http://localhost:8080/api/update';
-
-class App extends Component {
-  constructor(props) {
-    super(props)
-  }
-
-componentDidMount() {
-  console.log('App component mounted');
-}
-
-render () {
+export default function App() {
   return (
-    <div id = {'main-div'}>
-    <Main updateEntries = {updateEntries} getEntries = {getEntries} deleteEntries = {deleteEntries}/>
+    <div id="main-div">
+      <Main />
     </div>
   );
 }
-
-}
-
-
-export default App;

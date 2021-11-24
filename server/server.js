@@ -13,13 +13,15 @@ const app = express();
 //this creates a mongoose db
 
 //connect your own database!!
-// const MONGO_URI = mongoose.connect(MONGO_URI, {
-//   useNewUrlParser: true,
-//   useUnifiedTopology: true,
-// });
-// mongoose.connection.once('open', () => {
-//   console.log('Connected to Database');
-// });
+// const MONGO_URI = ;
+
+mongoose.connect(MONGO_URI, {
+  useNewUrlParser: true,
+  useUnifiedTopology: true,
+});
+mongoose.connection.once('open', () => {
+  console.log('Connected to Database');
+});
 
 //url encoded and json body parsers
 app.use(express.json());

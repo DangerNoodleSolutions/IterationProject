@@ -71,13 +71,7 @@ userController.registerUser = (req, res, next) => {
   // If full_name is not defined, reassign value to null
   if (!full_name) full_name = null;
 
-<<<<<<< HEAD
   const hashedPassword = bcrypt.hash(password, 10);
-=======
-  // hashedPassword = bcrypt.hash(password, 10);
-  // console.log(hashedPassword);
-
->>>>>>> development
   const queryString = `INSERT INTO users (full_name, username, email, password)
   VALUES ($1, $2, $3, $4)
   RETURNING uuid`;

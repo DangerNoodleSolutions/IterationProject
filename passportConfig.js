@@ -3,7 +3,7 @@ const { pool } = require("./dbConfig");
 const bcrypt = require("bcrypt");
 
 function initialize(passport) {
-    const authenticateUser = (username, password){
+    const authenticateUser = (username, password) => {
 
         pool.query(
             `SELECT * FROM users WHERE username = $1`, [username], (err, results) => {
@@ -38,11 +38,12 @@ function initialize(passport) {
                 usernameField: "username",
                 passwordField: "password"
             },
-            autheticateUser
+            authenticateUser
         )
     );
     passport.serializeuser((user, done) => done(null, user.id));
-    passport.deserializeUser(id, done) => {
+
+    passport.deserializeUser((id, done) => {
         pool.query(
             `SELECT * FROM users WHERE id =$1`, [id], (err, results)=> {
                 if(err) {
@@ -51,7 +52,7 @@ function initialize(passport) {
                 return done(null, results.rows[0])
             }
         )
-    }
+    });
 }
 
 module.exports = initialize

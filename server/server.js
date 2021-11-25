@@ -1,6 +1,7 @@
 const express = require('express');
 const path = require('path');
 const cookieParser = require('cookie-parser');
+var cors = require('cors');
 const bodyParser = require('body-parser');
 const session = require("express-session");
 require("dotenv").config();
@@ -33,8 +34,10 @@ app.use(passport.initialize())
 app.use(passport.session());
 
 //url encoded and json body parsers
+app.use(cors());
 app.use(express.json());
 app.use(bodyParser.urlencoded({ extended: true }));
+app.use(cookieParser());
 
 // const entryRouter = express.Router();
 // app.use('/test', entryRouter);
@@ -67,12 +70,12 @@ app.post('/api/test', entryController.createEntry, (req, res) => {
 
 // find a journal entry
 app.get('/api/test', entryController.getEntry, (req, res) => {
-  return res.status(200).json('Entry found')
+  return res.status(200).json('Entry found');
 });
 
 // update a journal entry
 app.put('/api/update/:entryId', entryController.updateEntry, (req, res) => {
-  return res.status(200).json('Entry updated successfully')
+  return res.status(200).json('Entry updated successfully');
 });
 
 // delete a journal entry

@@ -5,10 +5,11 @@ import Modal from './Modal';
 export default function Entries({
   title,
   category,
-  text,
+  body,
   entryId,
   entries,
   newEntries,
+  categoriesList,
 }) {
   const [showModal, setShowModal] = useState(false);
 
@@ -17,6 +18,7 @@ export default function Entries({
   const updateEntries = 'http://localhost:8080/api/update';
 
   function handleDelete() {
+    console.log(entryId);
     fetch(deleteEntries + '/' + entryId, {
       method: 'DELETE',
       headers: { 'Content-type': 'application/json; charset=UTF-8' },
@@ -58,6 +60,7 @@ export default function Entries({
           category={category}
           setShowModal={setShowModal}
           newEntries={newEntries}
+          categoriesList={categoriesList}
         />
       ) : null}
     </div>

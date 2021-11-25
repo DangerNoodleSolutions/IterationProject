@@ -8,7 +8,7 @@ require("dotenv").config();
 const passport = require("passport");
 const entryController = require('./controllers/EntryController.js');
 const userController = require('./controllers/userController')
-const initializePassport = require('.passportConfig')
+const initializePassport = require('../passportConfig')
 
 initializePassport(passport);
 

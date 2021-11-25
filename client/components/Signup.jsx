@@ -33,30 +33,41 @@ function Signup() {
     }
   };
   return (
-    <div>
+    <div className="signupform">
       <h1>Sign Up </h1>
       <form onSubmit={handleSubmit}>
-        <label>Full Name</label>
-        <input
+      <div>
+        <label id="labelcss">Full Name</label>
+        <input id="signupspacer"
           placeholder='Full Name'
           onChange={(e) => setName(e.target.value)}
         />
-        <label>Email</label>
-        <input placeholder='Email' onChange={(e) => setEmail(e.target.value)} />
-        <label>Username</label>
-        <input
+        </div>
+        <div>
+        <label id="labelcssemail">Email</label>
+        <input  placeholder='Email' onChange={(e) => setEmail(e.target.value)} />
+        </div>
+        <div>
+        <label id="labelcss">Username</label>
+        <input 
           placeholder='Username'
           onChange={(e) => setUsername(e.target.value)}
         />
-        <label>Password</label>
-        <input
+        </div>
+        <div>
+        <label id="labelcss">Password{   }</label>
+        <input 
           placeholder='Password'
           onChange={(e) => setPassword(e.target.value)}
         />
-
-        <button type='submit'>Sign Up</button>
+        </div>
+        <button id="signupbtn2" type='submit'>Sign Up</button>
       </form>
-      <Link to='/login'>Login </Link>
+      <p id="textcss"><br/>Already have an account?</p>
+      <Link to='/login'>
+      <button id="loginbtn">Login 
+      </button>
+      </Link>
       {/* <div>{error}</div> */}
     </div>
   );

@@ -48,18 +48,18 @@ app.use('/build', express.static(path.join(__dirname, '../build')));
 /////////////////////////// ROUTE HANDLERS //////////////////////////////////
 
 // create a new user
-app.post('/users/signup', userController.registerUser, checkAuthenticated, (req, res) => {
-  return res.status(200).json({user_id: res.locals.user_id})
+app.post('/users/signup', userController.registerUser, (req, res) => {
+  return res.status(200).json({ user_id: res.locals.user_id })
 });
 
 
 // login a user
-app.post('/users/login', userController.loginUser, checkAuthenticated, (req, res) => {
-  return res.status(200).json({user_id: res.locals.user_id})
+app.post('/users/login', userController.loginUser, (req, res) => {
+  return res.status(200).json({ user_id: res.locals.user_id })
 });
 
 // display all journal entries in DB
-app.get('/api', entryController.getEntries, checkNotAuthenticated, (req, res) => {
+app.get('/api', entryController.getEntries, (req, res) => {
   return res.json(res.locals.entries)
 });
 

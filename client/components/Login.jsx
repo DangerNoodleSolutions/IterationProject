@@ -35,14 +35,17 @@ function Login() {
   return (
     <div>
       <h1>Login</h1>
-      <form onSubmit={handleSubmit}>
-        <label>Username</label>
+      <form className="loginform" onSubmit={handleSubmit}>
+        <label id="labelcss">Username </label>
         <input type='text' onChange={(e) => setUsername(e.target.value)} />
-        <label>Password</label>
+        <label id="labelcss">Password </label>
         <input type='text' onChange={(e) => setPassword(e.target.value)} />
-        <button type='submit'>Log in</button>
+        <button id="loginbtn2" type='submit'>Log in</button>
       </form>
-      <Link to='/signup'>Sign Up </Link>
+      <p id="textcss">Don't have an account yet?</p>
+      <Link to='/signup'>
+        <button id="signupbtn">Sign Up </button>
+      </Link>
       <div>{error}</div>
     </div>
   );

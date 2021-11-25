@@ -1,6 +1,11 @@
+* {
+  text-decoration: none !important;
+}
+
 body {
   text-align: center;
-  background-color: #ddd;
+  background-color: red;
+  margin: 0;
 }
 
 .h-tags {
@@ -18,8 +23,8 @@ body {
 
 .outer-entry {
   height: 70%;
-  min-width: 1092px;
-  overflow: scroll;
+  min-width: 1500px;
+  /* overflow: scroll; */
   overflow-x: hidden;
   border: solid #171d7a 0.1rem;
   position: relative;
@@ -81,8 +86,8 @@ label {
 }
 
 .create-btn {
-  background: #323792;
-  color: whitesmoke;
+  background: rgba(0, 255, 13, 0.808);
+  color: white;
   padding: 10px 24px;
   margin: 10px;
   text-align: center;
@@ -118,14 +123,21 @@ label {
 .header {
   padding: 0.5%;
   text-align: center;
-  background: #171d7a;
-  color: whitesmoke;
+  background-color: rgba(0, 255, 13, 0.808);
+  color: white;
   font-size: 30px;
+  font-family: 'Mountains of Christmas', cursive;
+  text-decoration: none;
+  background-image: linear-gradient(to bottom, whitesmoke, red);
+}
+
+.header:hover {
+  text-decoration: none;
 }
 
 .delete-btn {
-  background: whitesmoke;
-  color: #171d7a;
+  background: red;
+  color: white;
   padding: 15px 32px;
   text-align: center;
   text-decoration: none;
@@ -137,7 +149,7 @@ label {
 }
 
 .update-btn {
-  background: #171d7a;
+  background: green;
   color: whitesmoke;
   padding: 15px 32px;
   text-align: center;
@@ -148,10 +160,18 @@ label {
   font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande',
     'Lucida Sans', Ar;
 }
+.update-btn:hover {
+  background-color: red;
+  color: whitesmoke;
+  text-decoration: none;
+  cursor: pointer;
+}
 
 .delete-btn:hover {
-  background-color: #171d7a;
+  background-color: green;
   color: whitesmoke;
+  text-decoration: none;
+  cursor: pointer;
 }
 
 .delete-btn:active {
@@ -172,3 +192,209 @@ label {
   width: auto;
   height: auto;
 } */
+
+.homeStyle {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  align-content: center;
+  margin-top: 10%;
+}
+
+#loginbtn {
+  background-color: green;
+  color: white;
+  border-radius: 12px;
+  padding: 1rem;
+  padding-left: 1.5rem;
+  padding-right: 1.5rem;
+  font-size: large;
+  font-family: 'Mountains of Christmas', cursive;
+}
+#loginbtn2 {
+  background-color: green;
+  color: white;
+  border-radius: 12px;
+  font-size: large;
+  margin-left: 5px;
+  font-family: 'Mountains of Christmas', cursive;
+}
+#loginbtn2:hover {
+  cursor: hand;
+}
+
+#loginbtn:hover {
+  cursor: hand;
+}
+
+#signupbtn {
+  background-color: green;
+  color: white;
+  border-radius: 12px;
+  padding: 1rem;
+  font-size: large;
+  font-family: 'Mountains of Christmas', cursive;
+}
+
+#signupbtn:hover {
+  cursor: hand;
+}
+
+.snowflake {
+  color: #fff;
+  font-size: 1em;
+  font-family: Arial;
+  text-shadow: 0 0 1px #000;
+}
+
+@-webkit-keyframes snowflakes-fall {
+  0% {
+    top: -10%;
+  }
+  100% {
+    top: 100%;
+  }
+}
+@-webkit-keyframes snowflakes-shake {
+  0% {
+    -webkit-transform: translateX(0px);
+    transform: translateX(0px);
+  }
+  50% {
+    -webkit-transform: translateX(80px);
+    transform: translateX(80px);
+  }
+  100% {
+    -webkit-transform: translateX(0px);
+    transform: translateX(0px);
+  }
+}
+@keyframes snowflakes-fall {
+  0% {
+    top: -10%;
+  }
+  100% {
+    top: 100%;
+  }
+}
+@keyframes snowflakes-shake {
+  0% {
+    transform: translateX(0px);
+  }
+  50% {
+    transform: translateX(80px);
+  }
+  100% {
+    transform: translateX(0px);
+  }
+}
+.snowflake {
+  position: fixed;
+  top: -10%;
+  z-index: 9999;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+  cursor: default;
+  -webkit-animation-name: snowflakes-fall, snowflakes-shake;
+  -webkit-animation-duration: 10s, 3s;
+  -webkit-animation-timing-function: linear, ease-in-out;
+  -webkit-animation-iteration-count: infinite, infinite;
+  -webkit-animation-play-state: running, running;
+  animation-name: snowflakes-fall, snowflakes-shake;
+  animation-duration: 10s, 3s;
+  animation-timing-function: linear, ease-in-out;
+  animation-iteration-count: infinite, infinite;
+  animation-play-state: running, running;
+}
+.snowflake:nth-of-type(0) {
+  left: 1%;
+  -webkit-animation-delay: 0s, 0s;
+  animation-delay: 0s, 0s;
+}
+.snowflake:nth-of-type(1) {
+  left: 10%;
+  -webkit-animation-delay: 1s, 1s;
+  animation-delay: 1s, 1s;
+}
+.snowflake:nth-of-type(2) {
+  left: 20%;
+  -webkit-animation-delay: 6s, 0.5s;
+  animation-delay: 6s, 0.5s;
+}
+.snowflake:nth-of-type(3) {
+  left: 30%;
+  -webkit-animation-delay: 4s, 2s;
+  animation-delay: 4s, 2s;
+}
+.snowflake:nth-of-type(4) {
+  left: 40%;
+  -webkit-animation-delay: 2s, 2s;
+  animation-delay: 2s, 2s;
+}
+.snowflake:nth-of-type(5) {
+  left: 50%;
+  -webkit-animation-delay: 8s, 3s;
+  animation-delay: 8s, 3s;
+}
+.snowflake:nth-of-type(6) {
+  left: 60%;
+  -webkit-animation-delay: 6s, 2s;
+  animation-delay: 6s, 2s;
+}
+.snowflake:nth-of-type(7) {
+  left: 70%;
+  -webkit-animation-delay: 2.5s, 1s;
+  animation-delay: 2.5s, 1s;
+}
+.snowflake:nth-of-type(8) {
+  left: 80%;
+  -webkit-animation-delay: 1s, 0s;
+  animation-delay: 1s, 0s;
+}
+.snowflake:nth-of-type(9) {
+  left: 90%;
+  -webkit-animation-delay: 3s, 1.5s;
+  animation-delay: 3s, 1.5s;
+}
+
+h1 {
+  font-family: 'Mountains of Christmas', cursive;
+  color: whitesmoke;
+}
+
+#labelcss {
+  margin-right: 5px;
+  margin-left: 5px;
+  text-decoration: none !important;
+  font-family: 'Mountains of Christmas', cursive;
+  color: whitesmoke;
+}
+
+#textcss {
+  font-family: 'Mountains of Christmas', cursive;
+  color: whitesmoke;
+  font-size: larger;
+}
+
+#signupbtn2 {
+  background-color: green;
+  color: white;
+  border-radius: 12px;
+  margin-top: 10px;
+  font-size: large;
+  margin-left: 5px;
+  font-family: 'Mountains of Christmas', cursive;
+}
+#signupbtn2:hover {
+  cursor: hand;
+}
+
+#labelcssemail {
+  margin-right: 20px;
+  margin-left: 12px;
+  text-decoration: none !important;
+  font-family: 'Mountains of Christmas', cursive;
+  color: whitesmoke;
+}

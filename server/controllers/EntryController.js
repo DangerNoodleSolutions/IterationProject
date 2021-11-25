@@ -3,44 +3,47 @@ const Entry = require('../models/EntryModel.js');
 const EntryController = {
   async createEntry(req, res, next) {
     const { title, category, body, user_id } = req.body;
+    console.log('request body', req.body);
     const date = new Date();
     try {
       const text = `
       INSERT INTO journals (title, category, date, body, user_id)
       VALUES ($1, $2, $3, $4, $5)
       RETURNING *
-      `
+      `;
       const params = [title, category, date, body, user_id];
       const result = await Entry.query(text, params);
       res.locals.entries = result.rows[0];
       next();
-    }
-    catch (err) {
+    } catch (err) {
       next({
         log: `EntryController.createEntry: Error: ${err}`,
-        message: { err: 'Error occurred in EntryController.createEntry. Check server logs for more details' }
-      })
+        message: {
+          err: 'Error occurred in EntryController.createEntry. Check server logs for more details',
+        },
+      });
     }
   },
   // this method rerquests all of the entries in db
   async getEntries(req, res, next) {
-    const { user_id } = req.body;
-    console.log('works after req.params')
+    const { user_id } = req.query;
+    //console.log('works after req.params');
     try {
-      console.log('works at beginning of try')
+      //console.log('works at beginning of try');
       const text = `SELECT * FROM journals WHERE user_id = ${user_id}`;
 
       const result = await Entry.query(text);
-      console.log(result)
+      //console.log(result);
       res.locals.entries = result.rows;
       return next();
     } catch (err) {
       next({
         log: `EntryController.getEntry: Error: ${err}`,
-        message: { err: 'Error occurred in EntryController.getEntry. Check server logs for more details' }
-      })
+        message: {
+          err: 'Error occurred in EntryController.getEntry. Check server logs for more details',
+        },
+      });
     }
-
   },
 
   // this method will filter the entries by the requested category
@@ -56,14 +59,16 @@ const EntryController = {
     } catch (err) {
       return next({
         log: `EntryController.getEntry: Error: ${err}`,
-        message: { err: 'Error occurred in EntryController.getEntry. Check server logs for more details' }
-      })
+        message: {
+          err: 'Error occurred in EntryController.getEntry. Check server logs for more details',
+        },
+      });
     }
   },
 
   // this method will update the entry
   async updateEntry(req, res, next) {
-    const { entryId } = req.params
+    const { entryId } = req.params;
 
     const { title, category, body } = req.body;
     try {
@@ -73,33 +78,33 @@ const EntryController = {
       WHERE journals.id = ${entryId} 
       RETURNING *
       `;
-
+      console.log('before query');
       const result = await Entry.query(text);
+      console.log('after query');
+      console.log(result.rows);
       res.locals.entries = result.rows;
       res.status(200).json(res.locals.entries);
       // return next();
     } catch (err) {
       return next({
         log: `EntryController.getEntry: Error: ${err}`,
-        message: { err: 'Error occurred in EntryController.getEntry. Check server logs for more details' }
-      })
+        message: {
+          err: 'Error occurred in EntryController.getEntry. Check server logs for more details',
+        },
+      });
     }
   },
 
   async deleteEntry(req, res, next) {
-
-    const { entryId } = req.params
-
-
-
+    const { entryId } = req.params;
 
     try {
-      console.log('enter try')
+      console.log('enter try');
       const result = `
     DELETE FROM journals 
     WHERE journals.id =${entryId} 
     `;
-      console.log('result string good')
+      console.log('result string good');
       const deleted = await Entry.query(result);
       return next();
     } catch (err) {
@@ -108,11 +113,7 @@ const EntryController = {
         message: `EntryController.deleteEntry error: ${err}`,
       });
     }
-
   },
-
-
 };
-
 
 module.exports = EntryController;

@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { Navigate } from 'react-router';
 import axios from 'axios';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 
 function Signup() {
   const [username, setUsername] = useState('');
@@ -11,6 +11,7 @@ function Signup() {
   const [loggedIn, setLogin] = useState(false);
   const [user_id, setUserId] = useState('');
 
+  const navigate = useNavigate();
   const handleSubmit = async (e) => {
     e.preventDefault();
     const reqOptions = {
@@ -20,42 +21,42 @@ function Signup() {
       full_name: full_name,
     };
     const response = await axios.post(
-      'http://localhost:3000/api/login',
+      'http://localhost:3000/users/signup',
       reqOptions
     );
     if (response.data.error) error = response.data.error;
     if (response.data.user_id) {
       //TBD
       setLogin(true);
+      setUserId(response.data.user_id);
+      navigate('/maincontainer', { state: { user_id: response.data.user_id } });
     }
   };
-  return loggedIn ? (
-    <Navigate to="/maincontainer" user_id={user_id} />
-  ) : (
+  return (
     <div>
       <h1>Sign Up </h1>
       <form onSubmit={handleSubmit}>
         <label>Full Name</label>
         <input
-          placeholder="Full Name"
+          placeholder='Full Name'
           onChange={(e) => setName(e.target.value)}
         />
         <label>Email</label>
-        <input placeholder="Email" onChange={(e) => setEmail(e.target.value)} />
+        <input placeholder='Email' onChange={(e) => setEmail(e.target.value)} />
         <label>Username</label>
         <input
-          placeholder="Username"
+          placeholder='Username'
           onChange={(e) => setUsername(e.target.value)}
         />
         <label>Password</label>
         <input
-          placeholder="Password"
+          placeholder='Password'
           onChange={(e) => setPassword(e.target.value)}
         />
 
-        <button type="submit">Sign Up</button>
+        <button type='submit'>Sign Up</button>
       </form>
-      <Link to="/login">Login </Link>
+      <Link to='/login'>Login </Link>
       {/* <div>{error}</div> */}
     </div>
   );

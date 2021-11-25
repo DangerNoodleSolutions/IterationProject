@@ -10,22 +10,37 @@ const updateEntries = 'http://localhost:8080/api/update';
 const Modal = ({
   entryId,
   title,
-  text,
+  body,
   category,
+  categoriesList,
   setShowModal,
   newEntries,
 }) => {
+  //   const [body, setBody] = useState('');
+  //   const [title, setTitle] = useState('');
+  //   const [category, setCategory] = useState(categoriesList[0]);
+
+  const [modalBody, setModalBody] = useState('');
+  const [modalTitle, setModalTitle] = useState('');
+  const [modalCategory, setModalCategory] = useState('');
+
   function handleUpdate() {
-    fetch(`http://localhost:3000/api/update/:${entryId}`, {
+    console.log(entryId);
+    fetch(`/api/update/${entryId}`, {
       method: 'PUT',
-      body: {
-        title: title,
-        category: category,
-        date: date,
-        body: text,
-      },
+      // body: {
+      //   title: title,
+      //   category: category,
+      //   date: date,
+      //   body: text,
+      // },
       headers: { 'Content-type': 'application/json; charset=UTF-8' },
-      body: JSON.stringify({ entryId, title, body, category }),
+      body: JSON.stringify({
+        entryId: entryId,
+        title: modalTitle,
+        body: modalBody,
+        category: modalCategory,
+      }),
     })
       .then((res) => res.json())
       .then((data) => console.log(data))
@@ -36,47 +51,43 @@ const Modal = ({
     setShowModal(false);
   };
 
+  const options = [];
+  for (const option of categoriesList) {
+    options.push(<option value={option}>{option}</option>);
+  }
+
   return (
     <div>
-      <section className="modal-main">
+      <section className='modal-main'>
         <div>
-          <form>
-            <label htmlFor="category">Choose a category:</label>
-
-            <select name="category" id="category">
-              <option value={`${category}`}>{category}</option>
-              <option value="Technical Challenges">Technical Challenges</option>
-              <option value="APC Notes">APC Notes</option>
-              <option value="Reflections">Reflections</option>
-              <option value="Misc.">Misc.</option>
-            </select>
-
-            {/* <input name='category' type='text' placeholder='Category...'></input> */}
-            {/* need to change to textarea */}
-            <div>
-              <textarea
-                name="title"
-                type="text"
-                defaultValue={`${title}`}
-              ></textarea>
-            </div>
-            <div>
-              {' '}
-              <textarea
-                name="text"
-                type="text"
-                defaultValue={`${body}`}
-              ></textarea>{' '}
-            </div>
-            <input
-              type="submit"
-              value="Update Entry"
-              className={'closeBtn'}
-              onSubmit={handleUpdate}
-              onSubmit={closeModalOnClick}
-            ></input>
-          </form>
-          <button onClick={closeModalOnClick}> CLOSE MODAL</button>
+          <label
+            htmlFor='category'
+            onChange={(e) => setModalCategory(e.target.value)}
+          >
+            Choose a category:
+          </label>
+          <select name='category' id='category'>
+            {options}
+          </select>
+          <input
+            type='text'
+            defaultValue={`${title}`}
+            onChange={(e) => setModalTitle(e.target.value)}
+          />
+          <input
+            type='text'
+            defaultValue={`${body}`}
+            onChange={(e) => setModalBody(e.target.value)}
+          />
+          <button onClick={() => closeModalOnClick()}> CLOSE MODAL</button>
+          <button
+            onClick={() => {
+              handleUpdate();
+              closeModalOnClick();
+            }}
+          >
+            Update
+          </button>
         </div>
       </section>
     </div>
@@ -84,3 +95,31 @@ const Modal = ({
 };
 
 export default Modal;
+
+{
+  /* <div>
+            <textarea
+              name='title'
+              type='text'
+              defaultValue={`${title}`}
+            ></textarea>
+          </div>
+          <div>
+         
+            <textarea
+              name='text'
+              type='text'
+              defaultValue={`${body}`}
+            ></textarea>
+          </div>
+          <button onClick={() => {
+              handleUpdate();
+              closeModalOnClick();
+            }}
+          >
+            Update
+          </button>
+          
+        </div>
+      </section> */
+}

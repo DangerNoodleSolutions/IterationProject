@@ -5,7 +5,8 @@ body {
 
 .h-tags {
   padding: 1.5rem;
-  font-family:'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+  font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande',
+    'Lucida Sans', Arial, sans-serif;
   font-size: 1.5rem;
   line-height: 0.4;
 }
@@ -17,30 +18,30 @@ body {
 
 .outer-entry {
   height: 70%;
-  overflow:scroll;
-  overflow-x:hidden;
-  border: solid #171d7a .1rem;
+  min-width: 1092px;
+  overflow: scroll;
+  overflow-x: hidden;
+  border: solid #171d7a 0.1rem;
   position: relative;
   background: rgb(245, 245, 245);
-  box-shadow: 15px 15px rgba(0,0,0,.15);
-  transition: all .4s ease;
+  box-shadow: 15px 15px rgba(0, 0, 0, 0.15);
+  transition: all 0.4s ease;
   border-radius: 12px;
 }
 
 .entry-div {
   padding: 1rem;
-  border-bottom: solid #171d7a .2rem;
+  border-bottom: solid #171d7a 0.2rem;
   text-align: center;
   width: 100%;
-
 }
 
 .description {
   font-size: 1.5rem;
 
-  font-family:'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif
+  font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande',
+    'Lucida Sans', Arial, sans-serif;
 }
-
 
 #description-id {
   height: 20%;
@@ -53,27 +54,27 @@ body {
 
 .form-div {
   max-width: 70%;
-	padding: 20px 12px 10px 20px;
-	font: 13px Arial, Helvetica, sans-serif;
+  padding: 20px 12px 10px 20px;
+  font: 13px Arial, Helvetica, sans-serif;
 }
 
-.form-div label{
-	display: block;
-	margin: 0px 0px 15px 0px;
+.form-div label {
+  display: block;
+  margin: 0px 0px 15px 0px;
 }
 
 label {
   font-weight: bold;
-	font-style: italic;
-	border-bottom: 2px solid #ddd;
-	margin-bottom: 20px;
-	font-size: 15px;
-	padding-bottom: 3px;
+  font-style: italic;
+  border-bottom: 2px solid #ddd;
+  margin-bottom: 20px;
+  font-size: 15px;
+  padding-bottom: 3px;
 }
 
 .entryForm {
   margin: 1rem;
-  border: solid #171d7a .1rem;
+  border: solid #171d7a 0.1rem;
   background: rgb(245, 245, 245);
   width: 125%;
   border-radius: 8px;
@@ -89,7 +90,8 @@ label {
   display: inline-block;
   font-size: 16px;
   border-radius: 4px;
-  font-family:'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif
+  font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande',
+    'Lucida Sans', Arial, sans-serif;
 }
 
 .create-btn:hover {
@@ -99,22 +101,22 @@ label {
 
 .form-items {
   box-sizing: border-box;
-	-webkit-box-sizing: border-box;
-	-moz-box-sizing: border-box;
-	border: 1px solid #C2C2C2;
-	box-shadow: 1px 1px 4px #EBEBEB;
-	-moz-box-shadow: 1px 1px 4px #EBEBEB;
-	-webkit-box-shadow: 1px 1px 4px #EBEBEB;
-	border-radius: 3px;
-	-webkit-border-radius: 3px;
-	-moz-border-radius: 3px;
-	padding: 7px;
-	outline: none;
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  border: 1px solid #c2c2c2;
+  box-shadow: 1px 1px 4px #ebebeb;
+  -moz-box-shadow: 1px 1px 4px #ebebeb;
+  -webkit-box-shadow: 1px 1px 4px #ebebeb;
+  border-radius: 3px;
+  -webkit-border-radius: 3px;
+  -moz-border-radius: 3px;
+  padding: 7px;
+  outline: none;
   margin: 1rem;
 }
 
 .header {
-  padding: .5%;
+  padding: 0.5%;
   text-align: center;
   background: #171d7a;
   color: whitesmoke;
@@ -130,7 +132,8 @@ label {
   display: inline-block;
   font-size: 16px;
   border-radius: 12px;
-  font-family:'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif
+  font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande',
+    'Lucida Sans', Arial, sans-serif;
 }
 
 .update-btn {
@@ -142,7 +145,8 @@ label {
   display: inline-block;
   font-size: 16px;
   border-radius: 12px;
-  font-family:'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Ar
+  font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande',
+    'Lucida Sans', Ar;
 }
 
 .delete-btn:hover {
@@ -154,4 +158,17 @@ label {
   background-color: #3e8e41;
   box-shadow: 0 5px #666;
   transform: translateY(4px);
-} 
+}
+
+.main-div {
+  display: flex;
+  flex-direction: column;
+  width: 100vw;
+  align-items: center;
+  justify-content: center;
+}
+
+/* .entry-container {
+  width: auto;
+  height: auto;
+} */

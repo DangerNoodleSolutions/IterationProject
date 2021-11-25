@@ -2,15 +2,35 @@ const express = require('express');
 const path = require('path');
 const cookieParser = require('cookie-parser');
 const bodyParser = require('body-parser');
+const session = require("express-session");
+require("dotenv").config();
+const passport = require("passport");
 const entryController = require('./controllers/EntryController.js');
 const userController = require('./controllers/userController')
+const initializePassport = require('.passportConfig')
+
+initializePassport(passport);
 
 //intialize port 3000 const
-const PORT = 3000;
+const PORT = process.env.PORT || 3000;
+
 
 //init your server as app
 const app = express();
 
+app.use(session({
+  // Key we want to keep secret which will encrypt all of our information
+  secret: 'secret',
+  // Should we resave our session variables if nothing has changes which we dont
+  resave: false,
+  // Save empty value if there is no vaue which we do not want to do
+  saveUninitialized: false
+}))
+
+// Funtion inside passport which initializes passport
+app.use(passport.initialize())
+// Store our variables to be persisted across the whole session. Works with app.use(Session) above
+app.use(passport.session());
 
 //url encoded and json body parsers
 app.use(express.json());
@@ -25,17 +45,18 @@ app.use('/build', express.static(path.join(__dirname, '../build')));
 /////////////////////////// ROUTE HANDLERS //////////////////////////////////
 
 // create a new user
-app.post('/users/signup', userController.registerUser, (req, res) => {
+app.post('/users/signup', userController.registerUser, checkAuthenticated, (req, res) => {
   return res.status(200).json({user_id: res.locals.user_id})
 });
 
+
 // login a user
-app.post('/users/login', userController.loginUser, (req, res) => {
+app.post('/users/login', userController.loginUser, checkAuthenticated, (req, res) => {
   return res.status(200).json({user_id: res.locals.user_id})
 });
 
 // display all journal entries in DB
-app.get('/api', entryController.getEntries, (req, res) => {
+app.get('/api', entryController.getEntries, checkNotAuthenticated, (req, res) => {
   return res.json(res.locals.entries)
 });
 
@@ -59,6 +80,29 @@ app.delete('/api/delete/:entryId', entryController.deleteEntry, (req, res) => {
   // res.json('This works');
   return res.status(200).json('deleted successfully');
 });
+
+
+app.post("/users/login", passport.authenticate("local", {
+  successRedirect: "/maincontainer",
+  failureRedirect: "/users/login",
+})
+);
+
+function checkAuthenticated(req, res, next) {
+  if (req.isAuthenticated()) {
+    return res.redirect("/maincontainer");
+  }
+  next();
+}
+
+function checkNotAuthenticated(req, res, next) {
+  if (req.isAuthenticated()) {
+    return next();
+  }
+  res.redirect("/users/login");
+}
+
+
 
 // /////////////////////////////////////////////////////////////////////////////
 // //test to send main file to 3000

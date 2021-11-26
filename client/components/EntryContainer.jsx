@@ -1,7 +1,7 @@
 import React from 'react';
 import Entries from './Entries.jsx';
 
-export default function EntryContainer({ entries, categoriesList }) {
+export default function EntryContainer({ entries, categoriesList, getPosts }) {
   const entry = [];
   for (let i = 0; i < entries.length; i++) {
     entry.push(
@@ -12,12 +12,13 @@ export default function EntryContainer({ entries, categoriesList }) {
         category={entries[i].category}
         body={entries[i].body}
         categoriesList={categoriesList}
+        getPosts={getPosts}
       />
     );
   }
 
   return (
-    <div className='outer-entry'>
+    <div className="outer-entry">
       <div>{entry}</div>
     </div>
   );

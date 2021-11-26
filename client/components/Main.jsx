@@ -29,23 +29,34 @@ const Main = (props) => {
       });
   }, []);
 
-  // const entry = [];
-  // for (let i = 0; i < entries.length; i++) {
-  //   entry.push(
-  //     <Entries
-  //       entries={entries[i]}
-  //       entryId={entries[i]._id}
-  //       title={entries[i].title}
-  //       category={entries[i].category}
-  //       body={entries[i].body}
-  //     />
-  //   );
-  // }
+  const getPosts = () => {
+    console.log('USER_ID IN MAIN.JSX: ', user_id);
+    fetch(getEntries + '?user_id=' + user_id, {
+      method: 'GET',
+      headers: { 'Content-type': 'application/json; charset=UTF-8' },
+    })
+      .then((res) => res.json())
+      .then((res) => {
+        newEntries(res.reverse());
+        updateCategories([...new Set(res.map((obj) => obj.category))]);
+      })
+      .catch((error) => {
+        console.log(`There is an ${error} when mounting Main component`);
+      });
+  };
 
   return (
-    <div className='main-div'>
-      <EntryCreate categoriesList={categoriesList} user_id={user_id} />
-      <EntryContainer entries={entries} categoriesList={categoriesList} />
+    <div className="main-div">
+      <EntryCreate
+        getPosts={getPosts}
+        categoriesList={categoriesList}
+        user_id={user_id}
+      />
+      <EntryContainer
+        getPosts={getPosts}
+        entries={entries}
+        categoriesList={categoriesList}
+      />
     </div>
   );
 };

@@ -10,6 +10,7 @@ export default function Entries({
   entries,
   newEntries,
   categoriesList,
+  getPosts,
 }) {
   const [showModal, setShowModal] = useState(false);
 
@@ -45,7 +46,13 @@ export default function Entries({
         <button className={'update-btn'} onClick={showModalOnClick}>
           Update Entry
         </button>
-        <button className={'delete-btn'} onClick={handleDelete}>
+        <button
+          className={'delete-btn'}
+          onClick={() => {
+            handleDelete();
+            getPosts();
+          }}
+        >
           Delete Entry
         </button>{' '}
       </div>
@@ -61,6 +68,7 @@ export default function Entries({
           setShowModal={setShowModal}
           newEntries={newEntries}
           categoriesList={categoriesList}
+          getPosts={getPosts}
         />
       ) : null}
     </div>

@@ -1,6 +1,7 @@
+// import { getOwnPropertySymbols } from 'core-js/core/object';
 import React, { useState } from 'react';
 
-export default function EntryCreate({ categoriesList, user_id }) {
+export default function EntryCreate({ categoriesList, user_id, getPosts }) {
   const [body, setBody] = useState('');
   const [title, setTitle] = useState('');
   const [category, setCategory] = useState('Misc');
@@ -9,7 +10,6 @@ export default function EntryCreate({ categoriesList, user_id }) {
   for (const option of categoriesList) {
     options.push(<option value={option}>{option}</option>);
   }
-  options.push(<option value='Custom'>Custom</option>);
 
   async function submitEntryOnClick() {
     console.log('submitEntryOnClick clicked in EntryCreate.jsx');
@@ -35,25 +35,19 @@ export default function EntryCreate({ categoriesList, user_id }) {
   return (
     // prettier-ignore
     <div className='form-div entryForm'>
-      <select
+      <input className="category-input" type='text' list="category" onChange={(e) => setCategory(e.target.value)} placeholder="Select or enter custom category"/>
+      <datalist
         className='form-items'
         id='category'
-        value="Misc"
-        onChange={(e) => setCategory(e.target.value)}
+        
+        // onChange={(e) => setCategory(e.target.value)}
       >
-        <option value='Default' selected >Misc</option>
+        <option >Misc</option>
+        <option >APCs</option>
+        <option >Pair Programming</option>
+        <option >Mentor/Mentee Sessions</option>
         {options}
-      </select>
-      {category === 'Custom' ? (
-        <input
-          id='custom tag'
-          type='text'
-          className='form-items'
-          placeholder='Custom Category'
-        />
-      ) : (
-        <div />
-      )}
+      </datalist>
       <input
         className='form-items'
         type='text'
@@ -69,7 +63,10 @@ export default function EntryCreate({ categoriesList, user_id }) {
       ></input>
       <button
         className='form-items create-btn'
-        onClick={() => submitEntryOnClick()}
+        onClick={() => {
+          submitEntryOnClick();
+          getPosts();
+        }}
       >
         Create Entry
       </button>

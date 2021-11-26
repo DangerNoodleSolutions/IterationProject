@@ -15,14 +15,15 @@ const Modal = ({
   categoriesList,
   setShowModal,
   newEntries,
+  getPosts,
 }) => {
   //   const [body, setBody] = useState('');
   //   const [title, setTitle] = useState('');
   //   const [category, setCategory] = useState(categoriesList[0]);
 
-  const [modalBody, setModalBody] = useState('');
-  const [modalTitle, setModalTitle] = useState('');
-  const [modalCategory, setModalCategory] = useState('');
+  const [modalBody, setModalBody] = useState(body);
+  const [modalTitle, setModalTitle] = useState(title);
+  const [modalCategory, setModalCategory] = useState(category);
 
   function handleUpdate() {
     console.log(entryId);
@@ -58,24 +59,29 @@ const Modal = ({
 
   return (
     <div>
-      <section className='modal-main'>
+      <section className="modal-main">
         <div>
-          <label
-            htmlFor='category'
-            onChange={(e) => setModalCategory(e.target.value)}
-          >
-            Choose a category:
-          </label>
-          <select name='category' id='category'>
-            {options}
-          </select>
           <input
-            type='text'
+            className="category-input"
+            type="text"
+            list="category"
+            onChange={(e) => setModalCategory(e.target.value)}
+            placeholder="Select or enter custom category"
+          />
+          <datalist className="form-items" id="category">
+            <option>Misc</option>
+            <option>APCs</option>
+            <option>Pair Programming</option>
+            <option>Mentor/Mentee Sessions</option>
+            {options}
+          </datalist>
+          <input
+            type="text"
             defaultValue={`${title}`}
             onChange={(e) => setModalTitle(e.target.value)}
           />
           <input
-            type='text'
+            type="text"
             defaultValue={`${body}`}
             onChange={(e) => setModalBody(e.target.value)}
           />
@@ -83,6 +89,7 @@ const Modal = ({
           <button
             onClick={() => {
               handleUpdate();
+              getPosts();
               closeModalOnClick();
             }}
           >

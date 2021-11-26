@@ -13,40 +13,41 @@ module.exports = {
   },
   plugins: [HtmlWebpackPluginConfig],
 
-    //setup rules here
+  //setup rules here
   module: {
-      rules: [
-        {
-          test: /\.(js|jsx)$/,
-          exclude: /node_modules/,
-          use: {
-            loader: 'babel-loader',
-            options: {
-              presets: ['@babel/preset-env', '@babel/preset-react']
-            }
+    rules: [
+      {
+        test: /\.(js|jsx)$/,
+        exclude: /node_modules/,
+        use: {
+          loader: 'babel-loader',
+          options: {
+            presets: ['@babel/preset-env', '@babel/preset-react']
           }
-        },
-        {
-          test: /\.(scss|css)$/,
-          exclude: /node_modules/,
-          use: ['style-loader', 'css-loader', 'sass-loader']
         }
-      ],
+      },
+      {
+        test: /\.(scss|css)$/,
+        exclude: /node_modules/,
+        use: ['style-loader', 'css-loader', 'sass-loader']
+      }
+    ],
 
-    },
+  },
 
   devServer: {
     static: {
       publicPath: '/build/',
     },
 
-  port: 8080,
+    port: 8080,
 
-  //proxy server setup
-  proxy: {
-    '/api': 'http://localhost:3000',
-    '/users': 'http://localhost:3000',
-  }
+    //proxy server setup
+    proxy: {
+      '/api': 'http://localhost:3000',
+      '/users': 'http://localhost:3000',
+    },
+    historyApiFallback: true,
   },
 
   resolve: {

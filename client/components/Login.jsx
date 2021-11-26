@@ -37,13 +37,15 @@ function Login() {
       <h1>Login</h1>
       <form className="loginform" onSubmit={handleSubmit}>
         <label id="labelcss">Username </label>
-        <input type='text' onChange={(e) => setUsername(e.target.value)} />
+        <input type="text" onChange={(e) => setUsername(e.target.value)} />
         <label id="labelcss">Password </label>
-        <input type='text' onChange={(e) => setPassword(e.target.value)} />
-        <button id="loginbtn2" type='submit'>Log in</button>
+        <input type="password" onChange={(e) => setPassword(e.target.value)} />
+        <button id="loginbtn2" type="submit">
+          Log in
+        </button>
       </form>
       <p id="textcss">Don't have an account yet?</p>
-      <Link to='/signup'>
+      <Link to="/signup">
         <button id="signupbtn">Sign Up </button>
       </Link>
       <div>{error}</div>

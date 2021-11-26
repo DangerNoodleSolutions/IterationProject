@@ -7,8 +7,9 @@ const session = require("express-session");
 require("dotenv").config();
 const passport = require("passport");
 const entryController = require('./controllers/EntryController.js');
-const userController = require('./controllers/userController')
-const initializePassport = require('../passportConfig')
+const userController = require('./controllers/userController');
+const cookieController = require('./controllers/cookieController');
+const initializePassport = require('../passportConfig');
 
 initializePassport(passport);
 
@@ -48,13 +49,13 @@ app.use('/build', express.static(path.join(__dirname, '../build')));
 /////////////////////////// ROUTE HANDLERS //////////////////////////////////
 
 // create a new user
-app.post('/users/signup', userController.registerUser, (req, res) => {
+app.post('/users/signup', userController.registerUser, cookieController.setSSIDCookie, (req, res) => {
   return res.status(200).json({ user_id: res.locals.user_id })
 });
 
 
 // login a user
-app.post('/users/login', userController.loginUser, (req, res) => {
+app.post('/users/login', userController.loginUser, cookieController.setSSIDCookie, (req, res) => {
   return res.status(200).json({ user_id: res.locals.user_id })
 });
 
@@ -85,11 +86,11 @@ app.delete('/api/delete/:entryId', entryController.deleteEntry, (req, res) => {
 });
 
 
-app.post("/users/login", passport.authenticate("local", {
-  successRedirect: "/maincontainer",
-  failureRedirect: "/users/login",
-})
-);
+// app.post("/users/login", passport.authenticate("local", {
+//   successRedirect: "/maincontainer",
+//   failureRedirect: "/users/login",
+// })
+// );
 
 function checkAuthenticated(req, res, next) {
   if (req.isAuthenticated()) {
@@ -120,6 +121,18 @@ app.use('*', (req, res) => {
   return res
     .status(418)
     .json("Could not find what you're looking for so you're a teapot");
+});
+
+// Global Error Handler
+app.use((err, req, res, next) => {
+  const defaultErr = {
+    status: 400,
+    log: 'Express error handler caught unknown middleware error',
+    message: { err: 'An error occurred' }
+  }
+
+  const errorObj = Object.assign({}, defaultErr, err);
+  return res.status(errorObj.status).json(errorObj.message);
 });
 
 app.listen(PORT, () => {
